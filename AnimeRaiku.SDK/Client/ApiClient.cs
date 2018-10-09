@@ -70,19 +70,21 @@ namespace AnimeRaiku.SDK.Client
 
             client.DefaultRequestHeaders.Add("User-Agent", "AnimeRaiku C# SDK");
 
-            var accessToken = acccessTokenProvider.GetAccessToken();
+            var accessToken = await acccessTokenProvider.GetAccessTokenAsync();
             if (accessToken != null)
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken.AccessToken);
 
-
+            var domain = configuration.BaseUrl;
+            if (!domain.EndsWith("/"))
+                domain += '/';
 
             Task<HttpResponseMessage> task = null;
 
             if(method == "GET")
-                task = client.GetAsync(configuration.BaseUrl + entity + extraurl);
+                task = client.GetAsync(domain + entity + extraurl);
 
             if (method == "POST")
-                task = client.PostAsync(configuration.BaseUrl + entity + extraurl, new StringContent(json, Encoding.UTF8, "application/json"));
+                task = client.PostAsync(domain + entity + extraurl, new StringContent(json, Encoding.UTF8, "application/json"));
 
             HttpResponseMessage msg = await task;
 

@@ -71,6 +71,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="App.Secrets.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

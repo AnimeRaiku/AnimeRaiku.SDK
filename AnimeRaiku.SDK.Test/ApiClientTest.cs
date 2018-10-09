@@ -14,7 +14,7 @@ namespace AnimeRaiku.SDK.Test
     {
         private Configuration config = new Configuration()
         {
-            BaseUrl = "http://api.animeraiku.dev/"
+            BaseUrl = "http://api.animeraiku.test"
         };
 
         private IAccessTokenProvider token = new StringAccessTokenProvider(@"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImY0Y2YwNzQzNjU0MDZhMjY3NTJkNTg3ZDVlNDBmZGZmMTcxMmQzYzRhMDQwODc1OGRkNjM4NjQ0NWYzYTE1NmFhYjEyZDEyNDQ1YWE2YWUyIn0.eyJhdWQiOiIxIiwianRpIjoiZjRjZjA3NDM2NTQwNmEyNjc1MmQ1ODdkNWU0MGZkZmYxNzEyZDNjNGEwNDA4NzU4ZGQ2Mzg2NDQ1ZjNhMTU2YWFiMTJkMTI0NDVhYTZhZTIiLCJpYXQiOjE1MDI2MTY5ODEsIm5iZiI6MTUwMjYxNjk4MSwiZXhwIjoxNTM0MTUyOTgxLCJzdWIiOiIxIiwic2NvcGVzIjpbImVuY3ljbG9wZWRpYTpyZWFkIiwiZW5jeWNsb3BlZGlhOndyaXRlIiwidXNlcjpyZWFkIl19.LVNpPvMZpGdBdz9JoORKbAJoRsixe6leaD_CTUil--ARRMARKhiqfjb0_mtCjnHPGRwZgk4IfC1mPXWAhN54jk60dGfvctADy309KmCkKkpg65-rv_uqhIg9U-uQlT_aWzcVokDLOuOhb6y3RRODnGBRZsSUaam3NYnlIFJghabFzkHUOFFHKz-Nqqq7HO0P1IpAdaDgtuLVEZH3aJl_PUJhn33ZTyW7BbHNqN_wQ9kR1oyl6ido3e4oEILycs8_4QYzQTdgk4HP2Au0Vp1LbPPxNE7PM_Cu4U9U27dGKfpk4jJDMKInuBBiKH1Xmg1e3ENwcO16GUw9RZ554VFgRCm6VR20kABxTU420QYy_eXEDkVzvaAqG5XRUGJADOR8cz3G-XT_5XKocQrIPYjJKNY4ykkHUJvjwP1feOHA0EWfee4omC1WL4vOTv_d_nEmRvBTvoqiCwvaKQCWERswJjPwzxdV8PMJ-UQWZ4JMTRYkGa3yn-UEFkXcgBbifPv5D3R3Ftu-TxWAHgDia4PDrSUUwSqTlzI0bLkWWsfIfTZaXIyIlFJqlvGZZyO3mrcGx0Wjqaq4L1CygRSrTXuz6SqqgogyHc_aOEMVlut3neJj5wCd3JyfSXyRcAVJ9m76xlbjMsgfPmiXtyng0lmaCCPAxiD2KvVrULR2DWlPotY");
