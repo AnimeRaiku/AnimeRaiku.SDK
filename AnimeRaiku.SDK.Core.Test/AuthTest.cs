@@ -21,7 +21,7 @@ namespace AnimeRaiku.SDK.Core.Test
                 .AddJsonFile("client-secrets.json")
                 .Build();
 
-            var token = await new PasswordProvider(config["CLIENT_ID"], config["CLIENT_SECRET"], () => new NetworkCredential(config["USER"], config["PASSWORD"]), config["AUTH_URL"]).GetAccessTokenAsync();
+            var token = await new PasswordProvider(config["CLIENT_ID"], config["CLIENT_SECRET"], retry => new NetworkCredential(config["USER"], config["PASSWORD"]), config["AUTH_URL"]).GetAccessTokenAsync();
 
             Assert.IsNotNull(token?.AccessToken);
         }
