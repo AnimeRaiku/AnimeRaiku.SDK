@@ -13,7 +13,7 @@ namespace AnimeRaiku.SDK.Model.Internal
         [JsonProperty(propertyName: "role")]
         public string Role { get; set; }
 
-        [JsonProperty(propertyName: "_id")]
-        public string Id { get; set; }
+        [JsonProperty(propertyName: "id")]
+        public Id Id { get; set; }
     }
 }

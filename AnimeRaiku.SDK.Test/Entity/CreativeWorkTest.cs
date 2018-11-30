@@ -1,18 +1,20 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AnimeRaiku.SDK.Auth;
 using AnimeRaiku.SDK.Client;
-using AnimeRaiku.SDK.Model;
 using AnimeRaiku.SDK.Messages;
-using AnimeRaiku.SDK.Model.Internal;
-using AnimeRaiku.SDK.Query;
-using AnimeRaiku.SDK.Auth;
-using System.Net;
+using AnimeRaiku.SDK.Model;
 using AnimeRaiku.SDK.Test.Factory;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AnimeRaiku.SDK.Test
+namespace AnimeRaiku.SDK.Test.Entity
 {
     [TestClass]
-    public class ApiClientTest
+    public class CreativeWorkTest
     {
         private ApiConfiguration config = new ApiConfiguration()
         {
@@ -33,43 +35,36 @@ namespace AnimeRaiku.SDK.Test
             token = new PasswordProvider(clientId, clientSecret, retry => !retry ? new NetworkCredential(user, password) : null, authURL);
         }
 
-
-
-
-
         [TestMethod]
-        public void CWIndex()
+        public void CreateUpdate()
         {
             var api = new ApiClient(token, config);
+            CreativeWork p = new CreativeWorkFactory().Create();
 
-            QueryExpression qe = new QueryExpression();
-            qe.Criteria.AddCondition("name.content", ConditionOperator.Contains, "code geass");
+            ApiMessage<CreativeWork> r = api.Create(p).Result;
+            Assert.IsTrue(r.IsValid);
+            p.Audience = "DT";
+            ApiMessage<CreativeWork> u = api.Update(r.Data.Id, p).Result;
+            Assert.IsTrue(u.IsValid);
+            Assert.AreEqual("DT", p.Audience);
+        }
 
-            var a = api.GetAll<CreativeWork>(qe).Result;
+        [TestMethod]
+        public void Index()
+        {
+            var api = new ApiClient(token, config);
+            var a = api.GetAll<CreativeWork>().Result;
 
             Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
-        public void CWDetail()
+        public void Detail()
         {
             var api = new ApiClient(token, config);
             var a = api.Get<CreativeWork>("569b90bbc25c66d224ae3eed").Result;
 
             Assert.IsTrue(a.IsValid);
         }
-
-        [TestMethod]
-        public void QueryExpressionTest()
-        {
-            QueryExpression qe = new QueryExpression();
-            qe.Criteria.AddCondition("external_sources.url", ConditionOperator.Equals, "https://myanimelist.net/people/7/Eiji_Yanagisawa");
-            //qe.Criteria.AddCondition("date_start", ConditionOperator.Year, 2010);
-            //qe.AddOrder("name.content", OrderType.Descending);
-            //qe.AddOrder("date_start", OrderType.Ascending);
-            var api = new ApiClient(token, config);
-
-            var text = api.GetAll<Person>(qe).Result;
-        }
-    } 
+    }
 }

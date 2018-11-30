@@ -15,5 +15,8 @@ namespace AnimeRaiku.SDK.Model.Internal
 
         [JsonProperty(propertyName: "is_visible")]
         public bool IsVisible { get; set; }
+
+        [JsonProperty(propertyName: "id")]
+        public Id Id { get; set; }
     }
 }

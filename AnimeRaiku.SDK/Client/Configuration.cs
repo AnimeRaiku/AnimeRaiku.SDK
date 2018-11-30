@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AnimeRaiku.SDK.Client
 {
-    public class Configuration
+    public class ApiConfiguration
     {
         public String BaseUrl { get; set; } = "https://api.animeraiku.com";
 

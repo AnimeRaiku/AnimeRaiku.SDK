@@ -15,12 +15,12 @@ namespace AnimeRaiku.SDK.Client
     public class ApiClient
     {
         private IAccessTokenProvider acccessTokenProvider = null;
-        private Configuration configuration = null;
+        private ApiConfiguration configuration = null;
 
-        public ApiClient(IAccessTokenProvider auth = null, Configuration config = null)
+        public ApiClient(IAccessTokenProvider auth = null, ApiConfiguration config = null)
         {
             acccessTokenProvider = auth ?? new AnonymousAccessTokenProvider();
-            configuration = config ?? new Configuration();
+            configuration = config ?? new ApiConfiguration();
         }
 
         public async Task<ApiMessage<T>> Create<T>(T model) where T : BaseModel
@@ -34,7 +34,7 @@ namespace AnimeRaiku.SDK.Client
             var tmp = new ApiMessage<T>(model);
             tmp.Data.Id = id;
 
-            var t = await MakeHttpRequest<T>("POST", model.GetModelName(),  tmp);
+            var t = await MakeHttpRequest<T>("POST", model.GetModelName() + "/" +id,  tmp);
             return Deserialize<ApiMessage<T>>(t);
         }
 

@@ -28,7 +28,6 @@ namespace AnimeRaiku.SDK.Model
         [JsonProperty(propertyName: "type")]
         public string Type { get; set; }
 
-
         [JsonProperty(propertyName: "images")]
         public Images Images { get; set; }
 
@@ -50,8 +49,11 @@ namespace AnimeRaiku.SDK.Model
         [JsonProperty(propertyName: "rating")]
         public string Rating { get; set; }
 
-        [JsonProperty(propertyName: "numberOfEpisodes")]
+        [JsonProperty(propertyName: "number_episodes")]
         public int NumberOfEpisodes { get; set; }
+
+        [JsonProperty(propertyName: "number_seasons")]
+        public int NumberOfSeason { get; set; }
 
         [JsonProperty(propertyName: "is_visible")]
         public bool IsVisible { get; set; }
@@ -129,6 +131,9 @@ namespace AnimeRaiku.SDK.Model
 
     public class Name
     {
+        [JsonProperty(propertyName: "id")]
+        public Id Id { get; set; }
+
         [JsonProperty(propertyName: "lang")]
         public string Lang { get; set; }
 
@@ -147,6 +152,9 @@ namespace AnimeRaiku.SDK.Model
 
     public class Plot
     {
+        [JsonProperty(propertyName: "id")]
+        public Id Id { get; set; }
+
         [JsonProperty(propertyName: "lang")]
         public string Lang { get; set; }
 
@@ -163,30 +171,18 @@ namespace AnimeRaiku.SDK.Model
     public class Related
     {
         [JsonProperty(propertyName: "_id")]
-        public string Id { get; set; }
+        public Id Id { get; set; }
 
         [JsonProperty(propertyName: "relationship")]
         public string Relationship { get; set; }
-
-        [JsonProperty(propertyName: "links")]
-        public Link[] Links { get; set; }
     }
 
-    public class Link
-    {
-
-        [JsonProperty(propertyName: "rel")]
-        public string Rel { get; set; }
-
-        [JsonProperty(propertyName: "uri")]
-        public string Uri { get; set; }
-    }
-
+  
     public class Organization
     {
 
         [JsonProperty(propertyName: "_id")]
-        public string Id { get; set; }
+        public Id Id { get; set; }
 
         [JsonProperty(propertyName: "name")]
         public string Name { get; set; }

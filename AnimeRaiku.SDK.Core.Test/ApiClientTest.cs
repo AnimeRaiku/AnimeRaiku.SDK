@@ -14,7 +14,7 @@ namespace AnimeRaiku.SDK.Core.Test
     [TestClass]
     public class ApiClientTest
     {
-        private Configuration config = new Configuration()
+        private ApiConfiguration config = new ApiConfiguration()
         {
             BaseUrl = "http://api.animeraiku.test"
         };
@@ -32,7 +32,6 @@ namespace AnimeRaiku.SDK.Core.Test
         [TestMethod]
         public void CreateUpdate()
         {
-            
             var api = new ApiClient(token, config);
             Person p = new Person()
             {
@@ -52,7 +51,7 @@ namespace AnimeRaiku.SDK.Core.Test
                     new PersonName(){ Lang = "JA", Type = "MAIN", FirstName = "智一", LastName = "関",  IsVisible = false }
                 },
                 CreativeWorks = new PersonCreativeWorks[]{
-                    new PersonCreativeWorks(){ Id = "5945695095cc8412e0409759", Type = "voice", Role = "role" }
+                    new PersonCreativeWorks(){ Id = Id.NewId(), Type = "voice", Role = "role" }
                 },
                 ExternalSources = new ExternalSources[]
                 {
@@ -62,9 +61,11 @@ namespace AnimeRaiku.SDK.Core.Test
             };
 
             ApiMessage<Person> r = api.Create(p).Result;
-
+            Assert.IsTrue(r.IsValid);
             p.BirthPlace = "DT";
             ApiMessage<Person> u = api.Update(r.Data.Id, p).Result;
+            Assert.IsTrue(u.IsValid);
+            Assert.AreEqual("DT", p.BirthPlace);
         }
 
         [TestMethod]
@@ -72,6 +73,8 @@ namespace AnimeRaiku.SDK.Core.Test
         {
             var api = new ApiClient(token, config);
             var a = api.GetAll<Person>().Result;
+
+            Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
@@ -85,7 +88,9 @@ namespace AnimeRaiku.SDK.Core.Test
         public void Detail()
         {
             var api = new ApiClient(token, config);
-            var a = api.Get<Person>("5991d312aa13003c48001072").Result;
+            var a = api.Get<Person>("5c0110c9575cc50c20003a82").Result;
+
+            Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
@@ -97,6 +102,8 @@ namespace AnimeRaiku.SDK.Core.Test
             qe.Criteria.AddCondition("name.content", ConditionOperator.Contains, "code geass");
 
             var a = api.GetAll<CreativeWork>(qe).Result;
+
+            Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
@@ -104,6 +111,8 @@ namespace AnimeRaiku.SDK.Core.Test
         {
             var api = new ApiClient(token, config);
             var a = api.Get<CreativeWork>("569b90bbc25c66d224ae3eed").Result;
+
+            Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
@@ -115,6 +124,10 @@ namespace AnimeRaiku.SDK.Core.Test
             var b = api.Lookup<CreativeWork>("Code Geass lelouch", "OVA").Result;
 
             var c = api.Lookup<CreativeWork>("Code Geass lelouch", "Movie").Result;
+
+            Assert.IsTrue(a.IsValid);
+            Assert.IsTrue(b.IsValid);
+            Assert.IsTrue(c.IsValid);
         }
 
 
