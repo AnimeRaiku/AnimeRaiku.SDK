@@ -71,6 +71,8 @@
     <Compile Include="ApiClientTest.cs" />
     <Compile Include="Auth\PasswordProviderTest.cs" />
     <Compile Include="Entity\CreativeWorkTest.cs" />
+    <Compile Include="Entity\DataProviderTest.cs" />
+    <Compile Include="Entity\DataProviderTypeTest.cs" />
     <Compile Include="Entity\PersonTest.cs" />
     <Compile Include="Factory\BaseFactory.cs" />
     <Compile Include="Factory\CreativeWorkFactory.cs" />

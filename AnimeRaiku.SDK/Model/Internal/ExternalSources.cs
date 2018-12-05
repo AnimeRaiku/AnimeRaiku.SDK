@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AnimeRaiku.SDK.Model.Internal
+namespace AnimeRaiku.SDK.Model
 {
     public class ExternalSources
     {

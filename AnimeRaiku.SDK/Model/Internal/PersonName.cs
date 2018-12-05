@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AnimeRaiku.SDK.Model.Internal
+namespace AnimeRaiku.SDK.Model
 {
     public class PersonName
     {
         [JsonProperty(propertyName: "lang")]
-        public string Lang { get; set; }
+        public Languages Lang { get; set; }
 
         [JsonProperty(propertyName: "type")]
         public string Type { get; set; }

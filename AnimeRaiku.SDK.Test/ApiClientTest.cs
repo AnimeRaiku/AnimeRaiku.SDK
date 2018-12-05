@@ -34,7 +34,7 @@ namespace AnimeRaiku.SDK.Test
         }
 
 
-
+        /*
 
 
         [TestMethod]
@@ -58,18 +58,21 @@ namespace AnimeRaiku.SDK.Test
 
             Assert.IsTrue(a.IsValid);
         }
-
+        */
         [TestMethod]
         public void QueryExpressionTest()
         {
             QueryExpression qe = new QueryExpression();
             qe.Criteria.AddCondition("external_sources.url", ConditionOperator.Equals, "https://myanimelist.net/people/7/Eiji_Yanagisawa");
-            //qe.Criteria.AddCondition("date_start", ConditionOperator.Year, 2010);
-            //qe.AddOrder("name.content", OrderType.Descending);
-            //qe.AddOrder("date_start", OrderType.Ascending);
-            var api = new ApiClient(token, config);
+            qe.Criteria.AddCondition("date_start", ConditionOperator.Year, 2010);
+            qe.AddOrder("name.content", OrderType.Descending);
+            qe.AddOrder("date_start", OrderType.Ascending);
+            qe.Page = 2;
 
-            var text = api.GetAll<Person>(qe).Result;
+            var query = qe.ToString();
+            //var api = new ApiClient(token, config);
+
+            //var text = api.GetAll<Person>(qe).Result;
         }
     } 
 }

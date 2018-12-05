@@ -12,6 +12,18 @@ namespace AnimeRaiku.SDK.Query
             Orders = new List<OrderExpression>();
         }
 
+        private uint? page = null;
+        public uint? Page {
+            get {
+                return page; 
+            }
+            set {
+                if (page == 0)
+                    throw new ArgumentOutOfRangeException();
+                page = value;
+            }
+        }
+
         public FilterExpression Criteria { get; set; }
 
         public List<OrderExpression> Orders { get; set; }
@@ -23,13 +35,15 @@ namespace AnimeRaiku.SDK.Query
 
         public override string ToString()
         {
-            if(Criteria.Conditions.Count > 0 && Orders.Count == 0)
-                return Criteria.ToString();
-            if (Criteria.Conditions.Count == 0 && Orders.Count > 0)
-                return String.Join("&", Orders);
-            if (Criteria.Conditions.Count > 0 && Orders.Count > 0)
-                return Criteria.ToString()+ "&" + String.Join("&", Orders);
-            return "";
+            List<String> parameters = new List<string>();
+            if(Criteria.Conditions.Count > 0)
+                parameters.Add(Criteria.ToString());
+            if (Orders.Count > 0)
+                parameters.Add(String.Join("&", Orders));
+            if (Page != null)
+                parameters.Add("page=" + Page);
+
+            return String.Join("&", parameters);
         }
 
 
