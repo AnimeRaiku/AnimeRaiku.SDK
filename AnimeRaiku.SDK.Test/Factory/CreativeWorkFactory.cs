@@ -47,7 +47,10 @@ namespace AnimeRaiku.SDK.Test.Factory
                 NumberOfEpisodes = 1,
                 NumberOfSeason = 1,
                 Organization = new Organization[]{
-
+                    new Organization()
+                    {
+                         Id = Id.NewId()
+                    }
                 },
                 Rating = "",
                 Related = new Related[]{
