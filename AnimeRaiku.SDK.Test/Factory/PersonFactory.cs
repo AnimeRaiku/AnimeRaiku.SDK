@@ -25,20 +25,20 @@ namespace AnimeRaiku.SDK.Test.Factory
                         Id = Id.NewId(),
                         Content = "Autor",
                         IsVisible = true,
-                        Lang = "ES"
+                        Lang = Languages.ES
                     },
                     new Description() {
                         Id = Id.NewId(),
                         Content = "Autor2",
                         IsVisible = false,
-                        Lang = "EN"
+                        Lang = Languages.EN
                     }
                 },
                 Name = new PersonName[]
                 {
                     new PersonName(){
                         Id = Id.NewId(),
-                        Lang = "JA-X",
+                        Lang = Languages.JA_X,
                         Type = "MAIN",
                         FirstName = "Tomokazu",
                         LastName = "Seki",
@@ -46,7 +46,7 @@ namespace AnimeRaiku.SDK.Test.Factory
                     },
                     new PersonName(){
                         Id = Id.NewId(),
-                        Lang = "JA",
+                        Lang = Languages.JA,
                         Type = "MAIN",
                         FirstName = "智一",
                         LastName = "関",

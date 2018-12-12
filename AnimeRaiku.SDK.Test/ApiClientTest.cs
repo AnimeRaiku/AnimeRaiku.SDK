@@ -8,6 +8,7 @@ using AnimeRaiku.SDK.Query;
 using AnimeRaiku.SDK.Auth;
 using System.Net;
 using AnimeRaiku.SDK.Test.Factory;
+using AnimeRaiku.SDK.Api;
 
 namespace AnimeRaiku.SDK.Test
 {

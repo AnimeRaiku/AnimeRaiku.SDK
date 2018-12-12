@@ -19,7 +19,7 @@ namespace AnimeRaiku.SDK.Generate
 {
     class Program
     {
-        private static ApiClient api = null;
+        private static HttpClient api = null;
         static void Main(string[] args)
         {
             var config = new ConfigurationBuilder()
@@ -30,7 +30,7 @@ namespace AnimeRaiku.SDK.Generate
             {
                 BaseUrl = "https://api.animeraiku.com"
             };
-            api = new ApiClient(token, apiconfig);
+            api = new HttpClient(token, apiconfig);
 
             var dtt = GetDTT().Result;
             var dt = GetDT().Result;
@@ -53,7 +53,7 @@ namespace AnimeRaiku.SDK.Generate
             uint page = 1;
             do
             {
-                response = await api.GetAll<DataProviderType>(new Query.QueryExpression() { Page = page });
+                response = await api.Find<DataProviderType>(new Query.QueryExpression() { Page = page });
                 result.AddRange(response.Data);
                 page++;
             } while (response.Meta.Pagination.CurrentPage < response.Meta.Pagination.TotalPages);
@@ -68,7 +68,7 @@ namespace AnimeRaiku.SDK.Generate
             uint page = 1;
             do
             {
-                response = await api.GetAll<DataProvider>(new Query.QueryExpression() { Page = page });
+                response = await api.Find<DataProvider>(new Query.QueryExpression() { Page = page });
                 result.AddRange(response.Data);
                 page++;
             } while (response.Meta.Pagination.CurrentPage < response.Meta.Pagination.TotalPages);

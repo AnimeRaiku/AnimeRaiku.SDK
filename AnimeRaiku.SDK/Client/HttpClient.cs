@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace AnimeRaiku.SDK.Client
 {
-    public class ApiClient
+    public class HttpClient
     {
         private IAccessTokenProvider acccessTokenProvider = null;
         private ApiConfiguration configuration = null;
 
-        public ApiClient(IAccessTokenProvider auth = null, ApiConfiguration config = null)
+        public HttpClient(IAccessTokenProvider auth = null, ApiConfiguration config = null)
         {
             acccessTokenProvider = auth ?? new AnonymousAccessTokenProvider();
             configuration = config ?? new ApiConfiguration();
@@ -38,7 +38,7 @@ namespace AnimeRaiku.SDK.Client
             return Deserialize<ApiMessage<T>>(t);
         }
 
-        public async Task<ApiMessages<T>> GetAll<T>(QueryExpression query = null) where T : BaseModel
+        public async Task<ApiMessages<T>> Find<T>(QueryExpression query = null) where T : BaseModel
         {
             var t = await MakeHttpRequest<T>("GET", typeof(T).Name, null, ( query != null ? "?"+ query.ToString() : ""));
             return Deserialize<ApiMessages<T>>(t);
@@ -63,7 +63,7 @@ namespace AnimeRaiku.SDK.Client
         private async Task<String> MakeHttpRequest<T>(String method, String entity, ApiMessage<T> apimessage = null, string extraurl = "") where T : BaseModel
         {
             string json = Serialize(apimessage);
-            var client = new HttpClient();
+            var client = new System.Net.Http.HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));

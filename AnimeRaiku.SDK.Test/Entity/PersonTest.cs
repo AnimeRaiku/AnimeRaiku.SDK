@@ -38,7 +38,7 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void CreateUpdate()
         {
-            var api = new ApiClient(token, config);
+            var api = new HttpClient(token, config);
             Person p = new PersonFactory().Create();
 
             ApiMessage<Person> r = api.Create(p).Result;
@@ -52,8 +52,8 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Index()
         {
-            var api = new ApiClient(token, config);
-            var a = api.GetAll<Person>().Result;
+            var api = new HttpClient(token, config);
+            var a = api.Find<Person>().Result;
 
             Assert.IsTrue(a.IsValid);
         }
@@ -61,7 +61,7 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Detail()
         {
-            var api = new ApiClient(token, config);
+            var api = new HttpClient(token, config);
             var a = api.Get<Person>("5c0110c9575cc50c20003a82").Result;
 
             Assert.IsTrue(a.IsValid);

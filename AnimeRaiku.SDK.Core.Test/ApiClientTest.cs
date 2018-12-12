@@ -29,50 +29,13 @@ namespace AnimeRaiku.SDK.Core.Test
             token = new PasswordProvider(config["CLIENT_ID"], config["CLIENT_SECRET"], retry => new NetworkCredential(config["USER"], config["PASSWORD"]), config["AUTH_URL"]);
         }
 
-        [TestMethod]
-        public void CreateUpdate()
-        {
-            var api = new ApiClient(token, config);
-            Person p = new Person()
-            {
-                Slug = "Test",
-                BirthDate = DateTime.Now,
-                BirthPlace = "CR",
-                Blood = "A+",
-                DeathDate = DateTime.Now.AddYears(10),
-                DeathPlace = "MD",
-                Description = new Description[]{
-                    new Description() { Content = "Autor", IsVisible = true, Lang = "ES" },
-                    new Description() { Content = "Autor2", IsVisible = false, Lang = "EN" }
-                },
-                Name = new PersonName[]
-                {
-                    new PersonName(){ Lang = "JA-X", Type = "MAIN", FirstName = "Tomokazu", LastName = "Seki",  IsVisible = true },
-                    new PersonName(){ Lang = "JA", Type = "MAIN", FirstName = "智一", LastName = "関",  IsVisible = false }
-                },
-                CreativeWorks = new PersonCreativeWorks[]{
-                    new PersonCreativeWorks(){ Id = Id.NewId(), Type = "voice", Role = "role" }
-                },
-                ExternalSources = new ExternalSources[]
-                {
-                    new ExternalSources(){ Id = "MAL:People:1", Type ="MyAnimeList", Url = "https://myanimelist.net/people/1/Tomokazu_Seki" }
-                }
-
-            };
-
-            ApiMessage<Person> r = api.Create(p).Result;
-            Assert.IsTrue(r.IsValid);
-            p.BirthPlace = "DT";
-            ApiMessage<Person> u = api.Update(r.Data.Id, p).Result;
-            Assert.IsTrue(u.IsValid);
-            Assert.AreEqual("DT", p.BirthPlace);
-        }
+       
 
         [TestMethod]
         public void Index()
         {
-            var api = new ApiClient(token, config);
-            var a = api.GetAll<Person>().Result;
+            var api = new HttpClient(token, config);
+            var a = api.Find<Person>().Result;
 
             Assert.IsTrue(a.IsValid);
         }
@@ -80,68 +43,8 @@ namespace AnimeRaiku.SDK.Core.Test
         [TestMethod]
         public void IndexUser()
         {
-            var api = new ApiClient(token, config);
-            var a = api.GetAll<User>().Result;
-        }
-
-        [TestMethod]
-        public void Detail()
-        {
-            var api = new ApiClient(token, config);
-            var a = api.Get<Person>("5c0110c9575cc50c20003a82").Result;
-
-            Assert.IsTrue(a.IsValid);
-        }
-
-        [TestMethod]
-        public void CWIndex()
-        {
-            var api = new ApiClient(token, config);
-
-            QueryExpression qe = new QueryExpression();
-            qe.Criteria.AddCondition("name.content", ConditionOperator.Contains, "code geass");
-
-            var a = api.GetAll<CreativeWork>(qe).Result;
-
-            Assert.IsTrue(a.IsValid);
-        }
-
-        [TestMethod]
-        public void CWDetail()
-        {
-            var api = new ApiClient(token, config);
-            var a = api.Get<CreativeWork>("569b90bbc25c66d224ae3eed").Result;
-
-            Assert.IsTrue(a.IsValid);
-        }
-
-        [TestMethod]
-        public void Lookup()
-        {
-            var api = new ApiClient(token, config);
-            var a = api.Lookup<CreativeWork>("Code Geass lelouch", "Anime").Result;
-
-            var b = api.Lookup<CreativeWork>("Code Geass lelouch", "OVA").Result;
-
-            var c = api.Lookup<CreativeWork>("Code Geass lelouch", "Movie").Result;
-
-            Assert.IsTrue(a.IsValid);
-            Assert.IsTrue(b.IsValid);
-            Assert.IsTrue(c.IsValid);
-        }
-
-
-        [TestMethod]
-        public void QueryExpressionTest()
-        {
-            QueryExpression qe = new QueryExpression();
-            qe.Criteria.AddCondition("external_sources.url", ConditionOperator.Equals, "https://myanimelist.net/people/7/Eiji_Yanagisawa");
-            //qe.Criteria.AddCondition("date_start", ConditionOperator.Year, 2010);
-            //qe.AddOrder("name.content", OrderType.Descending);
-            //qe.AddOrder("date_start", OrderType.Ascending);
-            var api = new ApiClient(token, config);
-
-            var text = api.GetAll<Person>(qe).Result;
+            var api = new HttpClient(token, config);
+            var a = api.Find<User>().Result;
         }
     } 
 }

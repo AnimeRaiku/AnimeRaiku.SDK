@@ -1,4 +1,5 @@
-﻿using AnimeRaiku.SDK.Auth;
+﻿using AnimeRaiku.SDK.Api;
+using AnimeRaiku.SDK.Auth;
 using AnimeRaiku.SDK.Client;
 using AnimeRaiku.SDK.Messages;
 using AnimeRaiku.SDK.Model;
@@ -18,7 +19,7 @@ namespace AnimeRaiku.SDK.Test.Entity
     {
         private ApiConfiguration config = new ApiConfiguration()
         {
-            BaseUrl = "http://api.animeraiku.test"
+            BaseUrl = System.Configuration.ConfigurationManager.AppSettings["BaseURL"]
         };
 
         private IAccessTokenProvider token = null;
@@ -41,10 +42,10 @@ namespace AnimeRaiku.SDK.Test.Entity
             var api = new ApiClient(token, config);
             CreativeWork p = new CreativeWorkFactory().Create();
 
-            ApiMessage<CreativeWork> r = api.Create(p).Result;
+            ApiMessage<CreativeWork> r = api.CreativeWork.CreateAsync(p).Result;
             Assert.IsTrue(r.IsValid);
             p.Audience = "DT";
-            ApiMessage<CreativeWork> u = api.Update(r.Data.Id, p).Result;
+            ApiMessage<CreativeWork> u = api.CreativeWork.UpdateAsync(r.Data.Id, p).Result;
             Assert.IsTrue(u.IsValid);
             Assert.AreEqual("DT", p.Audience);
         }
@@ -53,7 +54,7 @@ namespace AnimeRaiku.SDK.Test.Entity
         public void Index()
         {
             var api = new ApiClient(token, config);
-            var a = api.GetAll<CreativeWork>().Result;
+            var a = api.CreativeWork.FindAsync().Result;
 
             Assert.IsTrue(a.IsValid);
         }
@@ -62,7 +63,7 @@ namespace AnimeRaiku.SDK.Test.Entity
         public void Detail()
         {
             var api = new ApiClient(token, config);
-            var a = api.Get<CreativeWork>("569b90bbc25c66d224ae3eed").Result;
+            var a = api.CreativeWork.GetByIdAsync("569b90bbc25c66d224ae3eed").Result;
 
             Assert.IsTrue(a.IsValid);
         }

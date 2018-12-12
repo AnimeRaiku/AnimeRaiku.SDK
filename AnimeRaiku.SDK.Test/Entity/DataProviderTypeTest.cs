@@ -36,8 +36,8 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Index()
         {
-            var api = new ApiClient(token, config);
-            var a = api.GetAll<DataProviderType>().Result;
+            var api = new HttpClient(token, config);
+            var a = api.Find<DataProviderType>().Result;
 
             Assert.IsTrue(a.IsValid);
         }
