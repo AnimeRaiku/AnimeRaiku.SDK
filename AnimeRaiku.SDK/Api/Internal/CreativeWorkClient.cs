@@ -9,33 +9,35 @@ using System.Threading.Tasks;
 
 namespace AnimeRaiku.SDK.Api.Internal
 {
-    public class CreativeWorkClient : BaseClient, IReadClient<CreativeWork>, IWriteClient<CreativeWork>
+    public class CreativeWorkClient : BaseWriteClient<CreativeWork>
     {
-        private HttpClient httpClient;
-
         internal CreativeWorkClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
-        public async Task<ApiMessage<CreativeWork>> CreateAsync(CreativeWork model)
+
+        private CreativeWorkNameClient name;
+        public CreativeWorkNameClient Name
         {
-            return await httpClient.Create(model);
+            get
+            {
+                if (name == null)
+                    name = new CreativeWorkNameClient(httpClient);
+                return name;
+            }
         }
 
-        public Task<ApiMessage<CreativeWork>> UpdateAsync(string id, CreativeWork model)
+        private CreativeWorkPlotClient plot;
+        public CreativeWorkPlotClient Plot
         {
-            throw new NotImplementedException();
+            get
+            {
+                if (plot == null)
+                    plot = new CreativeWorkPlotClient(httpClient);
+                return plot;
+            }
         }
 
-        public async Task<ApiMessages<CreativeWork>> FindAsync(QueryExpression query = null)
-        {
-            return await httpClient.Find<CreativeWork>(query);
-        }
-
-        public async Task<ApiMessage<CreativeWork>> GetByIdAsync(string id)
-        {
-            return await httpClient.Get<CreativeWork>(id);
-        }
     }
 }

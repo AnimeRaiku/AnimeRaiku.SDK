@@ -14,12 +14,13 @@ using System.Linq;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using AnimeRaiku.SDK.Api;
 
 namespace AnimeRaiku.SDK.Generate
 {
     class Program
     {
-        private static HttpClient api = null;
+        private static ApiClient api = null;
         static void Main(string[] args)
         {
             var config = new ConfigurationBuilder()
@@ -30,7 +31,7 @@ namespace AnimeRaiku.SDK.Generate
             {
                 BaseUrl = "https://api.animeraiku.com"
             };
-            api = new HttpClient(token, apiconfig);
+            api = new ApiClient(token, apiconfig);
 
             var dtt = GetDTT().Result;
             var dt = GetDT().Result;
@@ -53,7 +54,7 @@ namespace AnimeRaiku.SDK.Generate
             uint page = 1;
             do
             {
-                response = await api.Find<DataProviderType>(new Query.QueryExpression() { Page = page });
+                response = await api.DataProviderType.FindAsync(new Query.QueryExpression() { Page = page });
                 result.AddRange(response.Data);
                 page++;
             } while (response.Meta.Pagination.CurrentPage < response.Meta.Pagination.TotalPages);
@@ -68,7 +69,7 @@ namespace AnimeRaiku.SDK.Generate
             uint page = 1;
             do
             {
-                response = await api.Find<DataProvider>(new Query.QueryExpression() { Page = page });
+                response = await api.DataProvider.FindAsync(new Query.QueryExpression() { Page = page });
                 result.AddRange(response.Data);
                 page++;
             } while (response.Meta.Pagination.CurrentPage < response.Meta.Pagination.TotalPages);

@@ -1,4 +1,5 @@
-﻿using AnimeRaiku.SDK.Auth;
+﻿using AnimeRaiku.SDK.Api;
+using AnimeRaiku.SDK.Auth;
 using AnimeRaiku.SDK.Client;
 using AnimeRaiku.SDK.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,8 +37,8 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Index()
         {
-            var api = new HttpClient(token, config);
-            var a = api.Find<DataProviderType>().Result;
+            var api = new ApiClient(token, config);
+            var a = api.DataProviderType.FindAsync().Result;
 
             Assert.IsTrue(a.IsValid);
         }

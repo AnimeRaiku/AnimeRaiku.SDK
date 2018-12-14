@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace AnimeRaiku.SDK.Localization
 {
-    
+    //TODO: Permitir acceder al sistema de traducciones de la web para mostrar las traducciones de los distintos recursos
+    /*
     public class Localize{
 
         
 
 
-    }
+    }*/
 }

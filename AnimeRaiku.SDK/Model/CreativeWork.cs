@@ -5,10 +5,10 @@ using System.Text;
 
 namespace AnimeRaiku.SDK.Model
 {
-    public class CreativeWork : LookupModel
+    public class CreativeWork : BaseModel
     {
         [JsonProperty(propertyName: "name")]
-        public Name[] Name { get; set; }
+        public CreativeWorkName[] Name { get; set; }
 
         [JsonProperty(propertyName: "name_main")]
         public string NameMain { get; set; }
@@ -35,19 +35,19 @@ namespace AnimeRaiku.SDK.Model
         public DateTime DateStart { get; set; }
 
         [JsonProperty(propertyName: "date_start_precision")]
-        public string DateStartPrecision { get; set; }
+        public DatePrecisions DateStartPrecision { get; set; }
 
         [JsonProperty(propertyName: "date_end")]
         public DateTime DateEnd { get; set; }
 
         [JsonProperty(propertyName: "date_end_precision")]
-        public string DateEndPrecision { get; set; }
+        public DatePrecisions DateEndPrecision { get; set; }
 
         [JsonProperty(propertyName: "status")]
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
         [JsonProperty(propertyName: "rating")]
-        public string Rating { get; set; }
+        public Ratings Rating { get; set; }
 
         [JsonProperty(propertyName: "number_episodes")]
         public int NumberOfEpisodes { get; set; }
@@ -59,13 +59,13 @@ namespace AnimeRaiku.SDK.Model
         public bool IsVisible { get; set; }
 
         [JsonProperty(propertyName: "genre")]
-        public string[] Genre { get; set; }
+        public Genres[] Genre { get; set; }
 
         [JsonProperty(propertyName: "country")]
-        public string Country { get; set; }
+        public Countries Country { get; set; }
 
         [JsonProperty(propertyName: "audience")]
-        public string Audience { get; set; }
+        public Demographics Audience { get; set; }
 
         [JsonProperty(propertyName: "related")]
         public Related[] Related { get; set; }
@@ -129,16 +129,16 @@ namespace AnimeRaiku.SDK.Model
         public object Big { get; set; }
     }
 
-    public class Name
+    public class CreativeWorkName : BaseModel
     {
         [JsonProperty(propertyName: "id")]
         public Id Id { get; set; }
 
         [JsonProperty(propertyName: "lang")]
-        public string Lang { get; set; }
+        public Languages Lang { get; set; }
 
         [JsonProperty(propertyName: "type")]
-        public string Type { get; set; }
+        public NameTypes Type { get; set; }
 
         [JsonProperty(propertyName: "content")]
         public string Content { get; set; }
@@ -150,13 +150,13 @@ namespace AnimeRaiku.SDK.Model
         public bool IsForced { get; set; }
     }
 
-    public class Plot
+    public class Plot : BaseModel
     {
         [JsonProperty(propertyName: "id")]
         public Id Id { get; set; }
 
         [JsonProperty(propertyName: "lang")]
-        public string Lang { get; set; }
+        public Languages Lang { get; set; }
 
         [JsonProperty(propertyName: "is_visible")]
         public bool IsVisible { get; set; }
@@ -191,7 +191,7 @@ namespace AnimeRaiku.SDK.Model
         public string Slug { get; set; }
 
         [JsonProperty(propertyName: "task")]
-        public string Task { get; set; }
+        public OrganizationTask Task { get; set; }
     }
 
 

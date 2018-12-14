@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace AnimeRaiku.SDK.Test.Entity
 {
     [TestClass]
-    public class CreativeWorkTest
+    public class CreativeWorkPlotTest
     {
         private ApiConfiguration config = new ApiConfiguration()
         {
@@ -36,25 +36,12 @@ namespace AnimeRaiku.SDK.Test.Entity
             token = new PasswordProvider(clientId, clientSecret, retry => !retry ? new NetworkCredential(user, password) : null, authURL);
         }
 
-        [TestMethod]
-        public void CreateUpdate()
-        {
-            var api = new ApiClient(token, config);
-            CreativeWork p = new CreativeWorkFactory().Create();
-
-            ApiMessage<CreativeWork> r = api.CreativeWork.CreateAsync(p).Result;
-            Assert.IsTrue(r.IsValid);
-            p.Audience = Demographics.Shonen;
-            ApiMessage<CreativeWork> u = api.CreativeWork.UpdateAsync(r.Data.Id, p).Result;
-            Assert.IsTrue(u.IsValid);
-            Assert.AreEqual(Demographics.Shonen, p.Audience);
-        }
 
         [TestMethod]
         public void Index()
         {
             var api = new ApiClient(token, config);
-            var a = api.CreativeWork.FindAsync().Result;
+            var a = api.CreativeWork.Plot.FindAsync("5c1389a595bde36045440936").Result;
 
             Assert.IsTrue(a.IsValid);
         }
@@ -63,9 +50,23 @@ namespace AnimeRaiku.SDK.Test.Entity
         public void Detail()
         {
             var api = new ApiClient(token, config);
-            var a = api.CreativeWork.GetByIdAsync("5c1389a595bde36045440936").Result;
+            var a = api.CreativeWork.Plot.GetByIdAsync("5c1389a595bde36045440936", "5c13a83195bde3604544093f").Result;
 
             Assert.IsTrue(a.IsValid);
+        }
+
+        [TestMethod]
+        public void CreateUpdate()
+        {
+            var api = new ApiClient(token, config);
+            Plot p = new CreativeWorkPlotFactory().Create();
+
+            ApiMessage<Plot> r = api.CreativeWork.Plot.CreateAsync("5c1389a595bde36045440936", p).Result;
+            Assert.IsTrue(r.IsValid);
+            p.Lang = Languages.EN;
+            ApiMessage<Plot> u = api.CreativeWork.Plot.UpdateAsync("5c1389a595bde36045440936", r.Data.Id, p).Result;
+            Assert.IsTrue(u.IsValid);
+            Assert.AreEqual(Languages.EN, p.Lang);
         }
     }
 }

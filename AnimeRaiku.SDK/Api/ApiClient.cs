@@ -30,5 +30,40 @@ namespace AnimeRaiku.SDK.Api
                 return creativeWork;
             }
         }
+
+        private DataProviderTypeClient dataprovidertype;
+        public DataProviderTypeClient DataProviderType
+        {
+            get
+            {
+                if (dataprovidertype == null)
+                    dataprovidertype = new DataProviderTypeClient(httpClient);
+                return dataprovidertype;
+            }
+        }
+
+
+
+        private DataProviderClient dataprovider;
+        public DataProviderClient DataProvider
+        {
+            get
+            {
+                if (dataprovider == null)
+                    dataprovider = new DataProviderClient(httpClient);
+                return dataprovider;
+            }
+        }
+
+        private PersonClient person;
+        public PersonClient Person
+        {
+            get
+            {
+                if (person == null)
+                    person = new PersonClient(httpClient);
+                return person;
+            }
+        }
     }
 }

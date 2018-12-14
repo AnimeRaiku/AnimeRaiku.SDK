@@ -13,50 +13,53 @@ namespace AnimeRaiku.SDK.Test.Factory
         {
             return new CreativeWork()
             {
-                Type = "",
-                Slug = "",
-                Name = new Name[]{
-                     new Name()
+                Type = "Anime",
+                Slug = "test",
+                Name = new CreativeWorkName[]{
+                     new CreativeWorkName()
                      {
-                          Id = Id.NewId(),
-                           Content = "",
-                            Lang = "ES",
-                             IsForced = true,
-                                IsVisible = true,
-                                 Type = ""
+                        Id = Id.NewId(),
+                        Content = "Test",
+                        Lang = Languages.ES,
+                        IsForced = true,
+                        IsVisible = true,
+                        Type = NameTypes.Main
                      }
                 },
                 Plot = new Plot[]{
                     new Plot()
                     {
-                         Id = Id.NewId(),
-                         Lang = "",
-                          Content = "",
-                           Source = "",
-                           IsVisible = true
+                        Id = Id.NewId(),
+                        Lang = Languages.ES,
+                        Content = "Good Plot",
+                        Source = null,
+                        IsVisible = true
                     }
                 },
-                Audience = "",
-                Country = "",
+                Audience = Demographics.Shonen,
+                Country = Countries.ES,
                 DateStart = DateTime.Now,
-                DateStartPrecision = "",
+                DateStartPrecision = DatePrecisions.Hour,
                 DateEnd = DateTime.Now,
-                DateEndPrecision = "",
-                Genre = new String[] { "" },
+                DateEndPrecision = DatePrecisions.Hour,
+                Genre = new Genres[] { Genres.Action, Genres.Adventure },
                 IsVisible = true,
                 NumberOfEpisodes = 1,
                 NumberOfSeason = 1,
                 Organization = new Organization[]{
                     new Organization()
                     {
-                         Id = Id.NewId()
+                         Id = Id.NewId(),
+                         Task = OrganizationTask.AnimationProduction,
+                         Name = "Test corp",
+                         Slug = "test-corp"
                     }
                 },
-                Rating = "",
+                Rating = Ratings.None,
                 Related = new Related[]{
 
                 },
-                Status = "",
+                Status = Status.Ended,
             };
         }
     }

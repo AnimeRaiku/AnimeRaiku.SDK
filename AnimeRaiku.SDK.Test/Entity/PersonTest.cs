@@ -1,4 +1,5 @@
-﻿using AnimeRaiku.SDK.Auth;
+﻿using AnimeRaiku.SDK.Api;
+using AnimeRaiku.SDK.Auth;
 using AnimeRaiku.SDK.Client;
 using AnimeRaiku.SDK.Messages;
 using AnimeRaiku.SDK.Model;
@@ -38,13 +39,13 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void CreateUpdate()
         {
-            var api = new HttpClient(token, config);
+            var api = new ApiClient(token, config);
             Person p = new PersonFactory().Create();
 
-            ApiMessage<Person> r = api.Create(p).Result;
+            ApiMessage<Person> r = api.Person.CreateAsync(p).Result;
             Assert.IsTrue(r.IsValid);
             p.BirthPlace = "DT";
-            ApiMessage<Person> u = api.Update(r.Data.Id, p).Result;
+            ApiMessage<Person> u = api.Person.UpdateAsync(r.Data.Id, p).Result;
             Assert.IsTrue(u.IsValid);
             Assert.AreEqual("DT", p.BirthPlace);
         }
@@ -52,8 +53,8 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Index()
         {
-            var api = new HttpClient(token, config);
-            var a = api.Find<Person>().Result;
+            var api = new ApiClient(token, config);
+            var a = api.Person.FindAsync().Result;
 
             Assert.IsTrue(a.IsValid);
         }
@@ -61,8 +62,8 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Detail()
         {
-            var api = new HttpClient(token, config);
-            var a = api.Get<Person>("5c0110c9575cc50c20003a82").Result;
+            var api = new ApiClient(token, config);
+            var a = api.Person.GetByIdAsync("5c1375b495bde360460fb6f2").Result;
 
             Assert.IsTrue(a.IsValid);
         }

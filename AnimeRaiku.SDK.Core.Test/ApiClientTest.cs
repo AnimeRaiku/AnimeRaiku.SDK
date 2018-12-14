@@ -29,7 +29,7 @@ namespace AnimeRaiku.SDK.Core.Test
             token = new PasswordProvider(config["CLIENT_ID"], config["CLIENT_SECRET"], retry => new NetworkCredential(config["USER"], config["PASSWORD"]), config["AUTH_URL"]);
         }
 
-       
+       /*
 
         [TestMethod]
         public void Index()
@@ -45,6 +45,6 @@ namespace AnimeRaiku.SDK.Core.Test
         {
             var api = new HttpClient(token, config);
             var a = api.Find<User>().Result;
-        }
+        }*/
     } 
 }

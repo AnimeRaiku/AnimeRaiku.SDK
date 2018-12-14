@@ -70,12 +70,16 @@
   <ItemGroup>
     <Compile Include="ApiClientTest.cs" />
     <Compile Include="Auth\PasswordProviderTest.cs" />
+    <Compile Include="Entity\CreativeWorkNameTest.cs" />
+    <Compile Include="Entity\CreativeWorkPlotTest.cs" />
     <Compile Include="Entity\CreativeWorkTest.cs" />
     <Compile Include="Entity\DataProviderTest.cs" />
     <Compile Include="Entity\DataProviderTypeTest.cs" />
     <Compile Include="Entity\PersonTest.cs" />
     <Compile Include="Factory\BaseFactory.cs" />
     <Compile Include="Factory\CreativeWorkFactory.cs" />
+    <Compile Include="Factory\CreativeWorkNameFactory.cs" />
+    <Compile Include="Factory\CreativeWorkPlotFactory.cs" />
     <Compile Include="Factory\PersonFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PageTest.cs" />
