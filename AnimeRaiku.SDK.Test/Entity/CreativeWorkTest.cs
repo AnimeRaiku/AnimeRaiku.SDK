@@ -15,31 +15,11 @@ using System.Threading.Tasks;
 namespace AnimeRaiku.SDK.Test.Entity
 {
     [TestClass]
-    public class CreativeWorkTest
+    public class CreativeWorkTest : ApiBaseTest
     {
-        private ApiConfiguration config = new ApiConfiguration()
-        {
-            BaseUrl = System.Configuration.ConfigurationManager.AppSettings["BaseURL"]
-        };
-
-        private IAccessTokenProvider token = null;
-
-        [TestInitialize]
-        public void Init()
-        {
-            var clientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
-            var clientSecret = System.Configuration.ConfigurationManager.AppSettings["ClientSecret"];
-            var user = System.Configuration.ConfigurationManager.AppSettings["User"];
-            var password = System.Configuration.ConfigurationManager.AppSettings["Password"];
-            var authURL = System.Configuration.ConfigurationManager.AppSettings["AuthURL"];
-
-            token = new PasswordProvider(clientId, clientSecret, retry => !retry ? new NetworkCredential(user, password) : null, authURL);
-        }
-
         [TestMethod]
         public void CreateUpdate()
         {
-            var api = new ApiClient(token, config);
             CreativeWork p = new CreativeWorkFactory().Create();
 
             ApiMessage<CreativeWork> r = api.CreativeWork.CreateAsync(p).Result;
@@ -53,7 +33,6 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Index()
         {
-            var api = new ApiClient(token, config);
             var a = api.CreativeWork.FindAsync().Result;
 
             Assert.IsTrue(a.IsValid);
@@ -62,7 +41,6 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Detail()
         {
-            var api = new ApiClient(token, config);
             var a = api.CreativeWork.GetByIdAsync("5c1389a595bde36045440936").Result;
 
             Assert.IsTrue(a.IsValid);

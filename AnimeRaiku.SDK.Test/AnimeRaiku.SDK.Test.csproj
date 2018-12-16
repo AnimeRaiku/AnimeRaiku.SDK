@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="ApiClientTest.cs" />
     <Compile Include="Auth\PasswordProviderTest.cs" />
+    <Compile Include="Entity\ApiBaseTest.cs" />
     <Compile Include="Entity\CreativeWorkNameTest.cs" />
     <Compile Include="Entity\CreativeWorkPlotTest.cs" />
     <Compile Include="Entity\CreativeWorkTest.cs" />

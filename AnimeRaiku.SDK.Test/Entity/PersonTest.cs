@@ -15,31 +15,11 @@ using System.Threading.Tasks;
 namespace AnimeRaiku.SDK.Test.Entity
 {
     [TestClass]
-    public class PersonTest
+    public class PersonTest : ApiBaseTest
     {
-        private ApiConfiguration config = new ApiConfiguration()
-        {
-            BaseUrl = "http://api.animeraiku.test"
-        };
-
-        private IAccessTokenProvider token = null;
-
-        [TestInitialize]
-        public void Init()
-        {
-            var clientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
-            var clientSecret = System.Configuration.ConfigurationManager.AppSettings["ClientSecret"];
-            var user = System.Configuration.ConfigurationManager.AppSettings["User"];
-            var password = System.Configuration.ConfigurationManager.AppSettings["Password"];
-            var authURL = System.Configuration.ConfigurationManager.AppSettings["AuthURL"];
-
-            token = new PasswordProvider(clientId, clientSecret, retry => !retry ? new NetworkCredential(user, password) : null, authURL);
-        }
-
         [TestMethod]
         public void CreateUpdate()
         {
-            var api = new ApiClient(token, config);
             Person p = new PersonFactory().Create();
 
             ApiMessage<Person> r = api.Person.CreateAsync(p).Result;
@@ -53,7 +33,6 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Index()
         {
-            var api = new ApiClient(token, config);
             var a = api.Person.FindAsync().Result;
 
             Assert.IsTrue(a.IsValid);
@@ -62,7 +41,6 @@ namespace AnimeRaiku.SDK.Test.Entity
         [TestMethod]
         public void Detail()
         {
-            var api = new ApiClient(token, config);
             var a = api.Person.GetByIdAsync("5c1375b495bde360460fb6f2").Result;
 
             Assert.IsTrue(a.IsValid);
