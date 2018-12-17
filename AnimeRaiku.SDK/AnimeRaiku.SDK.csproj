@@ -3,18 +3,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>AnimeRaiku.SDK</PackageId>
-    <PackageVersion>1.0.5</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>AnimeRaiku</Authors>
     <Description>SDK de AnimeRaiku para C#</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Arreglado filtros</PackageReleaseNotes>
+    <PackageReleaseNotes>New API for de SDK</PackageReleaseNotes>
     <Copyright>Copyright 2017 (c) AnimeRaiku. All rights reserved.</Copyright>
     <PackageTags>AnimeRaiku</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://animeraiku.com</PackageProjectUrl>
     <PackageIconUrl>https://animeraiku.com/img/favicons/favicon20p.png</PackageIconUrl>
-    <Version>1.0.5</Version>
-    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <RepositoryUrl>https://github.com/AnimeRaiku/AnimeRaiku.SDK</RepositoryUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

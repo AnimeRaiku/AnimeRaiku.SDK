@@ -65,5 +65,17 @@ namespace AnimeRaiku.SDK.Api
                 return person;
             }
         }
+
+
+        private UserClient user;
+        public UserClient User
+        {
+            get
+            {
+                if (user == null)
+                    user = new UserClient(httpClient);
+                return user;
+            }
+        }
     }
 }
