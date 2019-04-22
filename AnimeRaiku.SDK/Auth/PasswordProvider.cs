@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AnimeRaiku.SDK.Auth
@@ -28,43 +29,59 @@ namespace AnimeRaiku.SDK.Auth
             GetCrendentials = getCrendentials;
         }
 
+        private TokenInfo token = null;
+
+        static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
         public async Task<TokenInfo> GetAccessTokenAsync()
         {
-            int currentRetry = 0;
-
-            for (; ; )
+            try
             {
-                try
+                await semaphoreSlim.WaitAsync();
+
+                if (token != null && token.ValidUntil > DateTime.Now)
+                    return token;
+                int currentRetry = 0;
+
+                for (; ; )
                 {
-                    var credentials = GetCrendentials(currentRetry != 0);
-                    if(credentials == null)
+                    try
                     {
-                        currentRetry = retryCount;
-                        throw new UnauthorizedException();
-                    }
-                    HttpResponseMessage response = await MakeRequest(credentials);
-
-                    var stringContent = await response.Content.ReadAsStringAsync();
-
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        var error = JsonConvert.DeserializeObject<OAuthError>(stringContent);
-                        if (error.Error == "invalid_credentials")
+                        var credentials = GetCrendentials(currentRetry != 0);
+                        if (credentials == null)
+                        {
+                            currentRetry = retryCount;
                             throw new UnauthorizedException();
-                        else if (error.Error == "invalid_client")
-                            throw new InvalidClientException();
-                        else
-                            throw new Exception(stringContent);
-                    }
+                        }
+                        HttpResponseMessage response = await MakeRequest(credentials);
 
-                    return JsonConvert.DeserializeObject<TokenInfo>(stringContent);
+                        var stringContent = await response.Content.ReadAsStringAsync();
+
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            var error = JsonConvert.DeserializeObject<OAuthError>(stringContent);
+                            if (error.Error == "invalid_credentials")
+                                throw new UnauthorizedException();
+                            else if (error.Error == "invalid_client")
+                                throw new InvalidClientException();
+                            else
+                                throw new Exception(stringContent);
+                        }
+
+                        token = JsonConvert.DeserializeObject<TokenInfo>(stringContent);
+                        token.ValidUntil = DateTime.Now.AddSeconds(token.ExpiresIn - 60);
+                        return token;
+                    }
+                    catch (Exception ex)
+                    {
+                        currentRetry++;
+                        if (currentRetry > this.retryCount || !IsTransient(ex))
+                            throw;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    currentRetry++;
-                    if (currentRetry > this.retryCount || !IsTransient(ex))
-                        throw;
-                }
+            }
+            finally
+            {
+                semaphoreSlim.Release();
             }
         }
 

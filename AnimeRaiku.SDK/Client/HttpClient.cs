@@ -118,7 +118,7 @@ namespace AnimeRaiku.SDK.Client
                 NullValueHandling = NullValueHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                DateFormatString = "yyyy-M-d'T'HH:mm:ss'Z'"
+                DateFormatString = "yyyy-MM-dd'T'HH:mm:ss'Z'"
             });
         }
 

@@ -29,16 +29,16 @@ namespace AnimeRaiku.SDK.Test.Entity
         }
 
         [TestMethod]
-        public void Detail()
+        public async Task Detail()
         {
             CreativeWork c = new CreativeWorkFactory().Create();
-            ApiMessage<CreativeWork> rc = api.CreativeWork.CreateAsync(c).Result;
+            ApiMessage<CreativeWork> rc = await api.CreativeWork.CreateAsync(c);
 
             CreativeWorkName p = new CreativeWorkNameFactory().Create();
 
-            ApiMessage<CreativeWorkName> r = api.CreativeWork.Name.CreateAsync(rc.Data.Id, p).Result;
+            ApiMessage<CreativeWorkName> r = await api.CreativeWork.Name.CreateAsync(rc.Data.Id, p);
 
-            var a = api.CreativeWork.Name.GetByIdAsync(rc.Data.Id, r.Data.Id).Result;
+            var a = await api.CreativeWork.Name.GetByIdAsync(rc.Data.Id, r.Data.Id);
 
             Assert.IsTrue(a.IsValid);
         }

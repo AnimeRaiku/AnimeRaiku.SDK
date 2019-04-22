@@ -11,6 +11,10 @@ namespace AnimeRaiku.SDK.Api.Internal
     {
         Task<ApiMessages<T>> FindAsync(String id);
 
+        Task<ApiMessages<T>> FindAsync(Id id);
+
         Task<ApiMessage<T>> GetByIdAsync(String id, String childid);
+
+        Task<ApiMessage<T>> GetByIdAsync(String id, Id childid);
     }
 }

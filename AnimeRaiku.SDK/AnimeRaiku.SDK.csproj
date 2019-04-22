@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>AnimeRaiku.SDK</PackageId>
-    <PackageVersion>1.1.0</PackageVersion>
+    <PackageVersion>1.1.1</PackageVersion>
     <Authors>AnimeRaiku</Authors>
     <Description>SDK de AnimeRaiku para C#</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -13,10 +13,10 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://animeraiku.com</PackageProjectUrl>
     <PackageIconUrl>https://animeraiku.com/img/favicons/favicon20p.png</PackageIconUrl>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
     <RepositoryUrl>https://github.com/AnimeRaiku/AnimeRaiku.SDK</RepositoryUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 

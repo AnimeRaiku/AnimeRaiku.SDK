@@ -39,9 +39,13 @@ namespace AnimeRaiku.SDK.Test.Entity
         }
 
         [TestMethod]
-        public void Detail()
+        public async Task Detail()
         {
-            var a = api.Person.GetByIdAsync("5c1375b495bde360460fb6f2").Result;
+            Person p = new PersonFactory().Create();
+
+            ApiMessage<Person> r = await api.Person.CreateAsync(p);
+
+            var a = await api.Person.GetByIdAsync(r.Data.Id);
 
             Assert.IsTrue(a.IsValid);
         }

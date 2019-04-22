@@ -18,9 +18,14 @@ namespace AnimeRaiku.SDK.Api.Internal
             return await httpClient.FindChild<T, U>(id, childEntity);
         }
 
+        public async Task<ApiMessages<U>> FindAsync(Id id) => await FindAsync(id.ToString());
+        
+
         public async Task<ApiMessage<U>> GetByIdAsync(String id, String childid)
         {
             return await httpClient.GetChild<T, U>(id, childid, childEntity);
         }
+
+        public async Task<ApiMessage<U>> GetByIdAsync(String id, Id childid) => await GetByIdAsync(id, childid.ToString());
     }
 }

@@ -18,30 +18,41 @@ namespace AnimeRaiku.SDK.Test.Entity
     public class CreativeWorkPlotTest : ApiBaseTest
     {
         [TestMethod]
-        public void Index()
+        public async Task Index()   
         {
-            var a = api.CreativeWork.Plot.FindAsync("5c1389a595bde36045440936").Result;
+            CreativeWork c = new CreativeWorkFactory().Create();
+            ApiMessage<CreativeWork> rc = await api.CreativeWork.CreateAsync(c);
+
+            var a = await api.CreativeWork.Plot.FindAsync(rc.Data.Id);
+
+            Assert.IsTrue(a.IsValid);
+            Assert.IsTrue(a.Data.Count == c.Plot.Length);
+        }
+
+        [TestMethod]
+        public async Task Detail()
+        {
+            CreativeWork c = new CreativeWorkFactory().Create();
+            ApiMessage<CreativeWork> rc = await api.CreativeWork.CreateAsync(c);
+
+            var a = await api.CreativeWork.Plot.GetByIdAsync(rc.Data.Id, rc.Data.Attributes.Plot[0].Id);
 
             Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
-        public void Detail()
+        public async Task CreateUpdate()
         {
-            var a = api.CreativeWork.Plot.GetByIdAsync("5c1389a595bde36045440936", "5c13a83195bde3604544093f").Result;
 
-            Assert.IsTrue(a.IsValid);
-        }
+            CreativeWork c = new CreativeWorkFactory().Create();
+            ApiMessage<CreativeWork> rc = await api.CreativeWork.CreateAsync(c);
 
-        [TestMethod]
-        public void CreateUpdate()
-        {
             Plot p = new CreativeWorkPlotFactory().Create();
 
-            ApiMessage<Plot> r = api.CreativeWork.Plot.CreateAsync("5c1389a595bde36045440936", p).Result;
+            ApiMessage<Plot> r = api.CreativeWork.Plot.CreateAsync(rc.Data.Id, p).Result;
             Assert.IsTrue(r.IsValid);
             p.Lang = Languages.EN;
-            ApiMessage<Plot> u = api.CreativeWork.Plot.UpdateAsync("5c1389a595bde36045440936", r.Data.Id, p).Result;
+            ApiMessage<Plot> u = api.CreativeWork.Plot.UpdateAsync(rc.Data.Id, r.Data.Id, p).Result;
             Assert.IsTrue(u.IsValid);
             Assert.AreEqual(Languages.EN, p.Lang);
         }

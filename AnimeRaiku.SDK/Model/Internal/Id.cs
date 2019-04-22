@@ -32,5 +32,8 @@ namespace AnimeRaiku.SDK.Model
         {
             return id;
         }
+
+        
+
     }
 }

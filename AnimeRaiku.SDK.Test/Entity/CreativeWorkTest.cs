@@ -18,30 +18,32 @@ namespace AnimeRaiku.SDK.Test.Entity
     public class CreativeWorkTest : ApiBaseTest
     {
         [TestMethod]
-        public void CreateUpdate()
+        public async Task CreateUpdate()
         {
             CreativeWork p = new CreativeWorkFactory().Create();
 
-            ApiMessage<CreativeWork> r = api.CreativeWork.CreateAsync(p).Result;
+            ApiMessage<CreativeWork> r = await api.CreativeWork.CreateAsync(p);
             Assert.IsTrue(r.IsValid);
             p.Audience = Demographics.Shonen;
-            ApiMessage<CreativeWork> u = api.CreativeWork.UpdateAsync(r.Data.Id, p).Result;
+            ApiMessage<CreativeWork> u = await api.CreativeWork.UpdateAsync(r.Data.Id, p);
             Assert.IsTrue(u.IsValid);
             Assert.AreEqual(Demographics.Shonen, p.Audience);
         }
 
         [TestMethod]
-        public void Index()
+        public async Task Index()
         {
-            var a = api.CreativeWork.FindAsync().Result;
+            var a =  await api.CreativeWork.FindAsync();
 
             Assert.IsTrue(a.IsValid);
         }
 
         [TestMethod]
-        public void Detail()
+        public async Task Detail()
         {
-            var a = api.CreativeWork.GetByIdAsync("5c1389a595bde36045440936").Result;
+            CreativeWork p = new CreativeWorkFactory().Create();
+            ApiMessage<CreativeWork> r = await api.CreativeWork.CreateAsync(p);
+            var a = await api.CreativeWork.GetByIdAsync(r.Data.Id);
 
             Assert.IsTrue(a.IsValid);
         }

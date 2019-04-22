@@ -18,6 +18,7 @@ namespace AnimeRaiku.SDK.Auth.Entity
 
         [JsonProperty(propertyName: "refresh_token")]
         public string RefreshToken { get; set; }
+        public DateTime ValidUntil { get; internal set; }
     }
 
 }
